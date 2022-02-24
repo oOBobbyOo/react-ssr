@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
 
+import { BrowserRouter } from 'react-router-dom'
+import { renderRoutes } from 'react-router-config'
+import routes from './routes'
+import Header from './components/Header'
+
 export default function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <div>
-      {count}
-      <hr />
-      <button onClick={() => setCount(count + 1)}>Increment</button>
-
-      <button onClick={() => setCount(count - 1)}>Reduction</button>
-    </div>
+    <>
+      <Header />
+      {renderRoutes(routes)}
+    </>
   )
 }
