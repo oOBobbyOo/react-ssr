@@ -3,6 +3,9 @@ import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { StaticRouter } from 'react-router-dom'
 import { renderRoutes } from 'react-router-config'
+import { Provider } from 'react-redux'
+import serialize from 'serialize-javascript'
+import { getServerStore } from '../store'
 import routes from '../routes'
 import Header from '../components/Header'
 
@@ -10,13 +13,17 @@ const app = express()
 app.use(express.static('public'))
 
 app.get('*', (req, res) => {
-  console.log(req.path)
-
   const content = renderToString(
-    <StaticRouter location={req.path}>
-      <Header />
-      {renderRoutes(routes)}
-    </StaticRouter>
+    <Provider store={getServerStore()}>
+      <StaticRouter location={req.path}>
+        <Header />
+        {renderRoutes(routes)}
+      </StaticRouter>
+    </Provider>
+  )
+
+  const initialState = JSON.stringify(
+    JSON.parse(serialize(getServerStore().getState()))
   )
 
   res.send(`
@@ -30,6 +37,7 @@ app.get('*', (req, res) => {
   		</head>
   		<body>
   			<div id="root">${content}</div>
+				<script>window.INITIAL_STATE = ${initialState} </script>
   			<script src="./client.js"></script>
   		</body>
   	</html>

@@ -4,14 +4,17 @@ import { Link } from 'react-router-dom'
 export default function Header() {
   return (
     <div className='header'>
-      <Nav>
+      <nav>
         <li>
           <Link to='/'>Home</Link>
         </li>
         <li>
           <Link to='/user'>User</Link>
         </li>
-      </Nav>
+        <li>
+          <Link to='/count'>Count</Link>
+        </li>
+      </nav>
     </div>
   )
 }

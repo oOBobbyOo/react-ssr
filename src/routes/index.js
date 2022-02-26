@@ -1,5 +1,6 @@
 import Home from '../pages/Home'
 import User from '../pages/User'
+import Count from '../pages/Count'
 import NotFound from '../pages/NotFound'
 
 const routes = [
@@ -11,6 +12,10 @@ const routes = [
   {
     path: '/user',
     component: User
+  },
+  {
+    path: '/count',
+    component: Count
   },
   {
     path: '*',
